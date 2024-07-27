@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Image from "next/image";
 
 
@@ -47,7 +48,7 @@ export default function Header() {
               text-white transition"
                                 href="#"
                             >
-                                Login
+                                <LoginLink>Login</LoginLink>
                             </a>
 
                             <a
@@ -58,7 +59,7 @@ export default function Header() {
               hover:text-slate-400 sm:block"
                                 href="#"
                             >
-                                Register
+                               <RegisterLink>Register</RegisterLink>
                             </a>
                         </div>
 
