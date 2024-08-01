@@ -36,11 +36,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Button>
-        <LogoutLink>
-          Logout
-        </LogoutLink>
-      </Button>
+      
     </div>
   );
 }

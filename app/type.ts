@@ -6,3 +6,9 @@ export interface KindeState {
         picture: string | null;
     } | null
 }
+
+export interface TEAM {
+    createdBy: String,
+    teamName: String,
+    _id: String
+}

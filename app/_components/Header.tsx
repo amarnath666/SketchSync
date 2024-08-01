@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import Image from "next/image";
 
-
-export default function Header() {
+function Header() {
     return (
         <header className="bg-black">
             <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -39,25 +37,17 @@ export default function Header() {
 
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
-                            <a
-                                className="block rounded-md 
-              px-5 py-2.5 text-sm font-medium 
-              text-white transition"
-                                href="#"
-                            >
-                                <LoginLink>Login</LoginLink>
-                            </a>
+                            <LoginLink>
+                                <Button className="block rounded-md px-5 py-2.5 text-sm font-medium text-white transition">
+                                    Login
+                                </Button>
+                            </LoginLink>
 
-                            <a
-                                className="hidden rounded-md 
-              bg-orange-400 px-5 py-2.5 text-sm 
-              font-medium 
-               text-white transition 
-              hover:bg-orange-500 sm:block"
-                                href="#"
-                            >
-                               <RegisterLink>Register</RegisterLink>
-                            </a>
+                            <RegisterLink>
+                                <Button className="hidden rounded-md bg-orange-400 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-orange-500 sm:block">
+                                    Register
+                                </Button>
+                            </RegisterLink>
                         </div>
 
                         <button
@@ -81,3 +71,5 @@ export default function Header() {
         </header>
     );
 }
+
+export default Header;

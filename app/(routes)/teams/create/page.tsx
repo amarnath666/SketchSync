@@ -51,8 +51,8 @@ const CreateTeam = () => {
                     />
                 </div>
                 <Button
-                    className="bg-blue-500 mt-9 w-[30%] 
-                    hover:bg-blue-600"
+                    className="bg-orange-400 mt-9 w-[30%] 
+                    hover:bg-orange-500"
                     disabled={!(teamName && teamName?.length > 0)}
                     onClick={() => createNewTeam()}
                 >Create Team</Button>
