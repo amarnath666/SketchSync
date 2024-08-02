@@ -14,7 +14,7 @@ import { TEAM } from "@/app/type";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-const SideNavTopSection = ({ user }: any) => {
+const SideNavTopSection = ({ user, setActiveTeamInfo }: any) => {
     const router = useRouter();
     const menu = [
         {
@@ -36,7 +36,12 @@ const SideNavTopSection = ({ user }: any) => {
     const [teamList, setTeamList] = useState<TEAM[]>()
     useEffect(() => {
         user && getTeamList();
-    }, [user])
+    }, [user]);
+
+    useEffect(() => {
+        activeTeam && setActiveTeamInfo(activeTeam)
+    }, [activeTeam])
+
     const getTeamList = async () => {
         const result = await convex.query(api.teams.getTeam, { email: user?.email });
         console.log("Teamlist", result);
