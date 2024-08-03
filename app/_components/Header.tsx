@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
-
+import Image from "next/image";
 function Header() {
     return (
         <header className="bg-black">
-            <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-                <h1 className="text-orange-400 font-extrabold">SKECHSYNC</h1>
+            <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-4 px-4 sm:px-6 lg:px-">
+            {/* <Image src='/pencil.png' alt='logo'
+    width={40}
+    height={40}
+    /> */}
+      <h1 className="text-orange-400 font-extrabold">SKETCHBOARD</h1>
                 <div className="flex flex-1 items-center justify-end md:justify-between">
                     <nav aria-label="Global" className="hidden md:block">
                         {/* <ul className="flex items-center gap-6 text-sm">

@@ -38,7 +38,7 @@ const CreateTeam = () => {
     }
     return (
         <div className="px-6 md:px-16 my-16">
-            <h1 className="text-orange-400 font-extrabold">SKECHSYNC</h1>
+            <h1 className="text-orange-400 font-extrabold">SKETCHSYNC</h1>
             <div className="flex flex-col items-center mt-8">
                 <h2 className="font-bold text-[40px] py-3">What should we call your team?</h2>
                 <h2 className="text-gray-500">You can always change this later from settings</h2>

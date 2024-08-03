@@ -61,7 +61,7 @@ const SideNavTopSection = ({ user, setActiveTeamInfo }: any) => {
                     <div className="flex items-center gap-3 hover:bg-slate-200 p-2 rounded-md
          cursor-pointer
       ">
-                        <h1 className="text-orange-400 font-extrabold">SKECHSYNC</h1>
+                        <h1 className="text-orange-400 font-extrabold">Sketchsync</h1>
                         <h2 className="flex gap-2 items-center
             font-bold text-[15px]
          ">{activeTeam?.teamName}

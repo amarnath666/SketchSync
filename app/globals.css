@@ -21,6 +21,15 @@ h6.ce-header{
   @apply text-base font-semibold
 }
 
+.editorjs-wrapper .ce-toolbar {
+  left: -40px !important;
+  right: auto !important;
+}
+
+.editorjs-wrapper .ce-block__content {
+  margin-left: 40px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

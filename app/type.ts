@@ -19,7 +19,7 @@ export interface FILE {
     document: string,
     fileName: string,
     teamId: string,
-    whiteBoard: string,
+    whiteboard: string,
     _id: string,
     _creationTime:number
 }

@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
+import Constant from "@/app/_constant/Constant";
+import PricingDialog from "./PricingDialog";
 
 
 const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
@@ -58,7 +60,7 @@ const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
                         New File
                     </Button>
                 </DialogTrigger>
-                <DialogContent>
+                {totalFiles<Constant.MAX_FREE_FILE ? <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Create New File</DialogTitle>
                         <DialogDescription>
@@ -78,7 +80,7 @@ const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
                         </DialogClose>
                     </DialogFooter>
 
-                </DialogContent>
+                </DialogContent> : <PricingDialog />}
             </Dialog>
 
             {/* Progress Bar */}
@@ -90,7 +92,7 @@ const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
                 </div>
             </div>
             <h2 className="text-[12px] mt-3">
-                <strong>{totalFiles}</strong> out of <strong>5</strong> files used</h2>
+                <strong>{totalFiles}</strong> out of <strong>{Constant.MAX_FREE_FILE}</strong> files used</h2>
             <h2 className="text-[12px] mt-1">Upgrade your plan for unlimited access.</h2>
         </div>
     )
