@@ -7,7 +7,8 @@ import { LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import { useConvex, useMutation } from 'convex/react';
 import React, { useEffect } from 'react';
 import FileList from './_components/FileList';
-// import Header from './_components/Header'
+import Header from './_components/Header';
+
 const Dashboard = () => {
   const convex = useConvex();
   const { user }: KindeState = useKindeBrowserClient();
@@ -38,7 +39,7 @@ const Dashboard = () => {
 
   return (
     <div className='p-8'>
-      {/* <Header /> */}
+      <Header />
       <FileList />
     </div>
   );

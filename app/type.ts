@@ -10,7 +10,8 @@ export interface KindeState {
 export interface TEAM {
     createdBy: String,
     teamName: String,
-    _id: String
+    _id: String,
+    member?: String
 }
 
 export interface FILE {
