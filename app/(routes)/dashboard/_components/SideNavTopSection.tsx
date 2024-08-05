@@ -8,14 +8,18 @@ import {
 import { LogoutLink, useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import { useConvex } from "convex/react";
+import { useConvex, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { TEAM } from "@/app/type";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useActiveTeam } from "@/app/_context/ActiveTeamContext";
 
-const SideNavTopSection = ({ user, setActiveTeamInfo }: any) => {
+const SideNavTopSection = ({ user }: any) => {
+    const convex = useConvex();
     const router = useRouter();
+    const {activeTeam, setActiveTeam} = useActiveTeam();
+    const [teamList, setTeamList] = useState<TEAM[]>()
     const menu = [
         {
             id: 1,
@@ -23,51 +27,60 @@ const SideNavTopSection = ({ user, setActiveTeamInfo }: any) => {
             path: "/teams/create",
             icon: Users
         },
-        {
-            id: 2,
-            name: "Settings",
-            path: "",
-            icon: Settings
-        }
+        // {
+        //     id: 2,
+        //     name: "Settings",
+        //     path: "",
+        //     icon: Settings
+        // }
     ]
 
-    const convex = useConvex();
-    const [activeTeam, setActiveTeam] = useState<TEAM>()
-    const [teamList, setTeamList] = useState<TEAM[]>()
-    useEffect(() => {
-        user && getTeamList();
-    }, [user]);
+    const teams = useQuery(api.teams.getTeam, 
+        user?.email ? {email: user.email} : "skip"
+    )
+    console.log("teams" ,teams)
 
     useEffect(() => {
-        activeTeam && setActiveTeamInfo(activeTeam)
-    }, [activeTeam])
+        if (teams) {
+            setTeamList(teams);
+            if (!activeTeam && teams.length > 0) {
+                setActiveTeam(teams[0])
+            }
+        }
+    }, [teams, activeTeam, setActiveTeam]);
 
-    const getTeamList = async () => {
-        const result = await convex.query(api.teams.getTeam, { email: user?.email });
-        console.log("Teamlist", result);
-        setTeamList(result);
-        setActiveTeam(result[0]);
-    }
+    // useEffect(() => {
+    //     activeTeam && setActiveTeamInfo(activeTeam)
+    // }, [activeTeam])
+
+    // const getTeamList = async () => {
+    //     const result = await convex.query(api.teams.getTeam, { email: user?.email });
+    //     console.log("Teamlist", result);
+    //     setTeamList(result);
+    //     setActiveTeam(result[0]);
+    // }
 
     const onMenuClick = (item: any) => {
         if (item.path) {
             router.push(item.path)
         }
     }
+
     return (
         <div>
             <Popover>
                 <PopoverTrigger>
                     <div className="flex items-center gap-3 hover:bg-slate-200 p-2 rounded-md
-         cursor-pointer
-      ">
+                        cursor-pointer
+                    ">
                         <h1 className="text-orange-400 font-extrabold">Sketchsync</h1>
                         <h2 className="flex gap-2 items-center
-            font-bold text-[15px]
-         ">{activeTeam?.teamName}
+                        font-bold text-[15px]
+                    ">{activeTeam?.teamName}
                             <ChevronDown />
                         </h2>
-                    </div></PopoverTrigger>
+                    </div>
+                </PopoverTrigger>
                 <PopoverContent className="ml-7 p-4">
                     {/* Team Section */}
                     <div>
@@ -117,9 +130,10 @@ const SideNavTopSection = ({ user, setActiveTeamInfo }: any) => {
                     </div>}
                 </PopoverContent>
             </Popover>
-            <Button variant="outline" className="w-full *:justify-start gap-2
+            <Button variant="outline" className="w-full justify-start gap-2
             font-bold mt-8 bg-gray-100">
-                <LayoutGrid className="h-5 w-5"/>
+                <LayoutGrid className="h-5 w-5" />
+                All Files
             </Button>
         </div>
     )

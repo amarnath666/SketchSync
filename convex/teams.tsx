@@ -7,12 +7,17 @@ export const getTeam = query({
     handler: async (ctx, args) => {
         const result = await ctx.db
             .query("teams")
-            .filter(q => q.eq(q.field("createdBy"), args.email))
+            .filter(q => 
+                q.or(
+                    q.eq(q.field("createdBy"), args.email),
+                    q.eq(q.field("members"), args.email)
+                )
+            )
             .collect();
 
         return result;
     }
-})
+});
 
 export const createTeam = mutation({
     args: {
@@ -67,6 +72,6 @@ export const addMemberToTeam = mutation({
         // Update the team document
         await ctx.db.patch(team._id, { members: updatedMembers})
 
-        return { success: true };
+        return { success: true, teamId: team._id, teamName: team.teamName };
     }
 });

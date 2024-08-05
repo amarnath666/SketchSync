@@ -24,3 +24,8 @@ export interface FILE {
     _id: string,
     _creationTime:number
 }
+
+export interface ActiveTeamContextType {
+    activeTeam: TEAM | null;
+    setActiveTeam: (team: TEAM | null) => void;
+}
