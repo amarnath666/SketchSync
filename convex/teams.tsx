@@ -5,17 +5,20 @@ import { nanoid } from "nanoid";
 export const getTeam = query({
     args: { email: v.string() },
     handler: async (ctx, args) => {
-        const result = await ctx.db
+        const allTeams = await ctx.db
             .query("teams")
             .filter(q => 
                 q.or(
                     q.eq(q.field("createdBy"), args.email),
-                    q.eq(q.field("members"), args.email)
+                    q.and(
+                        q.neq(q.field("members"), undefined),
+                        q.eq(q.field("members"), args.email)
+                    )
                 )
             )
             .collect();
 
-        return result;
+        return allTeams;
     }
 });
 
@@ -28,7 +31,7 @@ export const createTeam = mutation({
         const result = await ctx.db.insert("teams", {
             teamName: args.teamName,
             createdBy: args.createdBy,
-            members: []
+            members: [],
         })
         return result;
     }
@@ -56,21 +59,23 @@ export const addMemberToTeam = mutation({
     },
     handler: async (ctx, args) => {
         const team = await ctx.db
-        .query("teams")
-        .filter(q => q.eq(q.field("shareCode"), args.shareCode))
-        .first();
+            .query("teams")
+            .filter(q => q.eq(q.field("shareCode"), args.shareCode))
+            .first();
 
-        if (!team) throw Error("Invalid share link");
+        if (!team) throw new Error("Invalid share link");
 
         // Check if the member is already in the team
-        if (team.members.includes(args.memberEmail)) {
-            throw new Error("Member already exists")
+        const currentMembers = team.members || [];
+        if (currentMembers.includes(args.memberEmail)) {
+            throw new Error("Member already exists");
         }
-         // Add the new member to the team's members array
-        const updatedMembers = [...team.members, args.memberEmail];
+
+        // Add the new member to the team's members array
+        const updatedMembers = [...currentMembers, args.memberEmail];
 
         // Update the team document
-        await ctx.db.patch(team._id, { members: updatedMembers})
+        await ctx.db.patch(team._id, { members: updatedMembers });
 
         return { success: true, teamId: team._id, teamName: team.teamName };
     }

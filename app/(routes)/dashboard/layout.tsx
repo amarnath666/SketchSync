@@ -19,21 +19,21 @@ const DashboardLayout = ({
     const { user }: KindeState = useKindeBrowserClient();
     const [fileList_, setFileList_] = useState()
     const router = useRouter();
-    useEffect(() => {
-        if (user && user.email) {
-            checkTeam();
-        }
-    }, [user])
+    // useEffect(() => {
+    //     if (user && user.email) {
+    //         checkTeam();
+    //     }
+    // }, [user])
 
-    const checkTeam = async () => {
-        if (user && user.email) {
-            const result = await convex.query(api.teams.getTeam, { email: user.email });
+    // const checkTeam = async () => {
+    //     if (user && user.email) {
+    //         const result = await convex.query(api.teams.getTeam, { email: user.email });
 
-            if (!result?.length) {
-                router.push("teams/create")
-            }
-        }
-    }
+    //         if (!result?.length) {
+    //             router.push("teams/create")
+    //         }
+    //     }
+    // }
 
     return (
        

@@ -8,7 +8,7 @@ export interface KindeState {
 }
 
 export interface TEAM {
-    createdBy: String,
+    createdBy?: String,
     teamName: String,
     _id: String,
     member?: String

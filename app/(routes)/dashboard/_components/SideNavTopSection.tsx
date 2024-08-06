@@ -20,6 +20,7 @@ const SideNavTopSection = ({ user }: any) => {
     const router = useRouter();
     const {activeTeam, setActiveTeam} = useActiveTeam();
     const [teamList, setTeamList] = useState<TEAM[]>()
+    const [isLoading, setIsLoading] = useState(true);
     const menu = [
         {
             id: 1,
@@ -35,19 +36,24 @@ const SideNavTopSection = ({ user }: any) => {
         // }
     ]
 
+    // console.log("User in SideNavTopSection:", user);
+
     const teams = useQuery(api.teams.getTeam, 
         user?.email ? {email: user.email} : "skip"
     )
-    console.log("teams" ,teams)
+
+    console.log("Teams returned from useQuery:", teams);
 
     useEffect(() => {
         if (teams) {
             setTeamList(teams);
             if (!activeTeam && teams.length > 0) {
-                setActiveTeam(teams[0])
+                setActiveTeam(teams[0]);
             }
+            setIsLoading(false);
         }
     }, [teams, activeTeam, setActiveTeam]);
+
 
     // useEffect(() => {
     //     activeTeam && setActiveTeamInfo(activeTeam)
