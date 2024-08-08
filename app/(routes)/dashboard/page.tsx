@@ -14,8 +14,6 @@ const Dashboard = () => {
   const convex = useConvex();
   const { user }: KindeState = useKindeBrowserClient();
   const { activeTeam } = useActiveTeam();
-  console.log("id",activeTeam?._id)
-  console.log(activeTeam);
   const createUser = useMutation(api.user.createUser);
 
   useEffect(() => {

@@ -22,10 +22,15 @@ export interface FILE {
     teamId: string,
     whiteboard: string,
     _id: string,
-    _creationTime:number
+    _creationTime: number
 }
 
-export interface ActiveTeamContextType {
-    activeTeam: TEAM | null;
-    setActiveTeam: (team: TEAM | null) => void;
+export interface SkeletonProps {
+    rows?: number;
+    height?: number;
+    width?: string | number;
+    circular?: boolean;
+    circleSize?: number;
 }
+
+export type LayoutType = 'text' | 'canvas' | 'both';

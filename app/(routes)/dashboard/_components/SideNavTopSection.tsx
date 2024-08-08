@@ -18,7 +18,7 @@ import { useActiveTeam } from "@/app/_context/ActiveTeamContext";
 const SideNavTopSection = ({ user }: any) => {
     const convex = useConvex();
     const router = useRouter();
-    const {activeTeam, setActiveTeam} = useActiveTeam();
+    const { activeTeam, setActiveTeam } = useActiveTeam();
     const [teamList, setTeamList] = useState<TEAM[]>()
     const [isLoading, setIsLoading] = useState(true);
     const menu = [
@@ -27,19 +27,13 @@ const SideNavTopSection = ({ user }: any) => {
             name: "Create Team",
             path: "/teams/create",
             icon: Users
-        },
-        // {
-        //     id: 2,
-        //     name: "Settings",
-        //     path: "",
-        //     icon: Settings
-        // }
+        }
     ]
 
     // console.log("User in SideNavTopSection:", user);
 
-    const teams = useQuery(api.teams.getTeam, 
-        user?.email ? {email: user.email} : "skip"
+    const teams = useQuery(api.teams.getTeam,
+        user?.email ? { email: user.email } : "skip"
     )
 
     console.log("Teams returned from useQuery:", teams);

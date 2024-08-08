@@ -16,8 +16,8 @@ const Canvas = ({  fileId, fileData }: {  fileId: any, fileData: FILE }) => {
             _id: fileId,
             whiteboard: JSON.stringify(whiteBoardData)
         }).then(() => {
-            toast("whiteboard auto saved")
-            console.log("whiteboard auto saved")
+            // toast("whiteboard auto saved")
+            // console.log("whiteboard auto saved")
         }, (e) => {
             console.log("auto save failed", e)
         })
@@ -44,15 +44,15 @@ const Canvas = ({  fileId, fileData }: {  fileId: any, fileData: FILE }) => {
                     saveWhiteboard();
                 }}
                     
-            // UIOptions={{
-            //     canvasActions:{
-            //         saveToActiveFile:false,
-            //         loadScene:false,
-            //         export:false,
-            //         toggleTheme:false
+                // UIOptions={{
+                //     canvasActions: {
+                //         saveToActiveFile: true,
+                //         loadScene: true,
+                //         // export: true,
+                //         toggleTheme: true,
 
-            //     }
-            // }}
+                //     }
+                // }}
             >
                 <MainMenu>
                     <MainMenu.DefaultItems.ClearCanvas />

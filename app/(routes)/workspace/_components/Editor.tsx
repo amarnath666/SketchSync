@@ -83,7 +83,7 @@ const Editor = ({ fileId, fileData }: { fileId: any, fileData: FILE }) => {
       data: fileData?.document ? JSON.parse(fileData.document) : rawDocument,
       // config: {
       //     toolbarPosition: "left"
-      // }
+      // },
       onChange: debounce((api, event) => {
         onSaveDocument()
       }, 1000)
@@ -99,9 +99,7 @@ const Editor = ({ fileId, fileData }: { fileId: any, fileData: FILE }) => {
           _id: fileId,
           document: JSON.stringify(outputData)
         }).then(resp => {
-
-          toast('Document Auto Saved!')
-
+          // toast('Document Auto Saved!')
         }, (e) => {
           toast("Server Error!")
         })

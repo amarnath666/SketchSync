@@ -11,34 +11,7 @@ function Header() {
     /> */}
       <h1 className="text-orange-400 font-extrabold">SKETCHBOARD</h1>
                 <div className="flex flex-1 items-center justify-end md:justify-between">
-                    <nav aria-label="Global" className="hidden md:block">
-                        {/* <ul className="flex items-center gap-6 text-sm">
-                            <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> About </a>
-                            </li>
-
-                            <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> Careers </a>
-                            </li>
-
-                            <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> History </a>
-                            </li>
-
-                            <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> Services </a>
-                            </li>
-
-                            <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> Projects </a>
-                            </li>
-
-                            <li>
-                                <a className="text-white transition hover:text-gray-100/75" href="#"> Blog </a>
-                            </li>
-                        </ul> */}
-                    </nav>
-
+                    <nav aria-label="Global" className="hidden md:block"></nav>
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
                             <LoginLink>

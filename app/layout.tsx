@@ -22,12 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ActiveTeamProvider>
         <ConvexClientProvider>
-          {children}
-          <Toaster />
+          <ActiveTeamProvider>
+            {children}
+            <Toaster />
+          </ActiveTeamProvider>
         </ConvexClientProvider>
-        </ActiveTeamProvider>
       </body>
     </html>
   );

@@ -9,6 +9,7 @@ import { KindeState } from "@/app/type";
 import SideNav from "./_components/SideNav";
 import { FileListContext } from "@/app/_context/FileListContext";
 import { ActiveTeamProvider } from "@/app/_context/ActiveTeamContext";
+import LoadingAnimation from "@/app/_components/LoadingAnimation";
 
 const DashboardLayout = ({
     children,
@@ -17,23 +18,34 @@ const DashboardLayout = ({
 }>) => {
     const convex = useConvex();
     const { user }: KindeState = useKindeBrowserClient();
-    const [fileList_, setFileList_] = useState()
+    const [fileList_, setFileList_] = useState();
+    const [ isLoading, setIsLoading ] = useState(true);
     const router = useRouter();
-    // useEffect(() => {
-    //     if (user && user.email) {
-    //         checkTeam();
-    //     }
-    // }, [user])
+    
+    useEffect(() => {
+        if (user && user.email) {
+                checkTeam();
+        }
+    }, [user])
 
-    // const checkTeam = async () => {
-    //     if (user && user.email) {
-    //         const result = await convex.query(api.teams.getTeam, { email: user.email });
+    const checkTeam = async () => {
+        if (user && user.email) {
+            const result = await convex.query(api.teams.getTeam, { email: user.email });
 
-    //         if (!result?.length) {
-    //             router.push("teams/create")
-    //         }
-    //     }
-    // }
+            if (!result?.length) {
+                router.push("teams/create")
+            } else {
+                setIsLoading(false);
+            }
+                
+        } else {
+            setIsLoading(false);
+        }
+    }
+
+    if (isLoading) {
+        return <LoadingAnimation />; 
+    }
 
     return (
        
