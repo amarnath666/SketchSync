@@ -8,16 +8,16 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const FileList = () => {
-    const {fileList_, setFileList_} = useContext(FileListContext);
+    const { fileList_, setFileList_ } = useContext(FileListContext);
     const [fileList, setFileList] = useState<any>();
+    const [loading, setLoading] = useState(false);
     const { user }: any = useKindeBrowserClient();
     const router = useRouter();
 
@@ -25,9 +25,16 @@ const FileList = () => {
         fileList_ && setFileList(fileList_);
         console.log(fileList_);
     }, [fileList_]);
-    
+
+    const handleFileClick = (fileId: string) => {
+        setLoading(true);
+        router.push(`/workspace/${fileId}`).then(() => {
+            setLoading(false); 
+        })
+    };
+
     return (
-        <div className="mt-10 ">
+        <div className="mt-10">
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                     <thead className="ltr:text-left rtl:text-right">
@@ -40,9 +47,18 @@ const FileList = () => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
-                        {fileList && fileList.map((file: FILE, index: number) => (
-                            <tr key={index} className="odd:bg-gray-50 cursor-pointer"
-                            onClick={() => router.push("/workspace/"+file._id)}
+                        {loading && (
+                            <tr className="relative h-20">
+                                <td className="absolute inset-0 flex items-center justify-center">
+                                    <BeatLoader color="#F97316" />
+                                </td>
+                            </tr>
+                        )}
+                        {!loading && fileList && fileList.map((file: FILE, index: number) => (
+                            <tr
+                                key={index}
+                                className="odd:bg-gray-50 cursor-pointer hover:bg-slate-100"
+                                onClick={() => handleFileClick(file._id)}
                             >
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                     {file.fileName}
@@ -70,7 +86,7 @@ const FileList = () => {
                                         <DropdownMenuContent>
                                             <DropdownMenuItem className="gap-3">
                                                 <Archive className="h-4 w-4" /> Archive
-                                                </DropdownMenuItem>
+                                            </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </td>
@@ -80,7 +96,7 @@ const FileList = () => {
                 </table>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default FileList
+export default FileList;

@@ -25,12 +25,6 @@ export interface FILE {
     _creationTime: number
 }
 
-export interface SkeletonProps {
-    rows?: number;
-    height?: number;
-    width?: string | number;
-    circular?: boolean;
-    circleSize?: number;
-}
+
 
 export type LayoutType = 'text' | 'canvas' | 'both';

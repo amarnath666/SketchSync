@@ -9,7 +9,7 @@ const WorkspaceHeader = ({ setLayout }: { setLayout: (layout: LayoutType) => voi
                 <h1 className="text-orange-400 font-extrabold">SKETCHSYNC</h1>
                 <h2>File Name</h2>
             </div>
-            <div className="absolute inset-0 flex justify-center items-center">
+            <div className="absolute inset-0 flex justify-end items-center">
                 <div className="flex gap-4">
                     <Button
                         className="w-full h-8 bg-orange-500 hover:bg-orange-600 justify-start"
@@ -24,7 +24,7 @@ const WorkspaceHeader = ({ setLayout }: { setLayout: (layout: LayoutType) => voi
                         Both
                     </Button>
                     <Button
-                        className="w-full h-8 bg-orange-500 hover:bg-orange-600 justify-start"
+                        className="w-full h-8 bg-orange-500 hover:bg-orange-600 justify-start mr-4"
                         onClick={() => setLayout('canvas')}
                     >
                         Canvas
