@@ -17,73 +17,46 @@ import { toast } from 'sonner';
 import { FILE } from '@/app/type';
 import { debounce } from 'lodash';
 
-const rawDocument = {
-  "time": 1550476186479,
-  "blocks": [{
-    data: {
-      text: 'Document Name',
-      level: 2
+const DEFAULT_INITIAL_DATA = {
+  "time": new Date().getTime(),
+  "blocks": [
+    {
+      "type": "header",
+      "data": {
+        "text": "Welcome to Sketchsync",
+        "level": 2
+      }
     },
-    id: "123",
-    type: 'header'
-  },
-  {
-    data: {
-      level: 4
-    },
-    id: "1234",
-    type: 'header'
-  }],
-  "version": "2.8.1"
+    {
+      "type": "paragraph",
+      "data": {
+        "text": "Start typing your content here..."
+      }
+    }
+  ]
 }
-const Editor = ({ fileId, fileData }: { fileId: any, fileData: FILE }) => {
+
+const Editor = ({ fileId, fileData, updateFileData }: { fileId: any, fileData: FILE, updateFileData: (newData: Partial<FILE>) => void }) => {
   const ref = useRef<EditorJS>();
   const updateDocument = useMutation(api.files.updateDocument);
-  const [document, setDocument] = useState(rawDocument);
 
   useEffect(() => {
-    fileData && initEditor();
+    if (fileData && !ref.current) {
+      initEditor();
+    }
   }, [fileData])
-
-  // useEffect(()=>{
-  //   console.log("triiger Value:",onSaveTrigger);
-  //   onSaveTrigger&&onSaveDocument();
-  // },[onSaveTrigger])
 
   const initEditor = () => {
     const editor = new EditorJS({
-      /**
-       * Id of Element that should contain Editor instance
-       */
-
+      holder: 'editorjs',
       tools: {
-        header: {
-          class: Header,
-          shortcut: 'CMD+SHIFT+H',
-          config: {
-            placeholder: 'Enter a Header'
-          }
-        },
-        list: {
-          class: List,
-          inlineToolbar: true,
-          config: {
-            defaultStyle: 'unordered'
-          }
-        },
-        checklist: {
-          class: Checklist,
-          inlineToolbar: true,
-        },
+        header: Header,
+        list: List,
+        checklist: Checklist,
         paragraph: Paragraph,
         warning: Warning,
       },
-
-      holder: 'editorjs',
-      data: fileData?.document ? JSON.parse(fileData.document) : rawDocument,
-      // config: {
-      //     toolbarPosition: "left"
-      // },
+      data: fileData?.document ? JSON.parse(fileData.document) : DEFAULT_INITIAL_DATA,
       onChange: debounce((api, event) => {
         onSaveDocument()
       }, 1000)
@@ -95,19 +68,28 @@ const Editor = ({ fileId, fileData }: { fileId: any, fileData: FILE }) => {
     if (ref.current) {
       ref.current.save().then((outputData) => {
         console.log('Article data: ', outputData);
-        updateDocument({
-          _id: fileId,
-          document: JSON.stringify(outputData)
-        }).then(resp => {
-          // toast('Document Auto Saved!')
-        }, (e) => {
-          toast("Server Error!")
-        })
+        if (outputData && outputData.blocks && outputData.blocks.length > 0) {
+          const documentString = JSON.stringify(outputData);
+          updateDocument({
+            _id: fileId,
+            document: documentString
+          }).then(resp => {
+            updateFileData({ document: documentString });
+            console.log('Document saved successfully');
+          }, (e) => {
+            console.error("Server Error!", e);
+            toast("Failed to save document");
+          })
+        } else {
+          console.warn('No valid blocks to save');
+        }
       }).catch((error) => {
-        console.log('Saving failed: ', error)
+        console.error('Saving failed: ', error)
+        toast("Failed to save document");
       });
     }
   }
+
   return (
     <div>
       <div id='editorjs' className='ml-20'></div>

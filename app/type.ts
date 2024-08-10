@@ -25,6 +25,4 @@ export interface FILE {
     _creationTime: number
 }
 
-
-
 export type LayoutType = 'text' | 'canvas' | 'both';

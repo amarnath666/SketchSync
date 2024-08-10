@@ -26,11 +26,9 @@ const FileList = () => {
         console.log(fileList_);
     }, [fileList_]);
 
-    const handleFileClick = (fileId: string) => {
+    const handleFileClick = (fileId: any) => {
         setLoading(true);
-        router.push(`/workspace/${fileId}`).then(() => {
-            setLoading(false); 
-        })
+        if (router.push(`/workspace/${fileId}`)) setLoading(false); 
     };
 
     return (

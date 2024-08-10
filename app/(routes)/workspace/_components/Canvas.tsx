@@ -6,32 +6,24 @@ import { FILE } from '@/app/type';
 import { debounce } from 'lodash';
 import { toast } from 'sonner';
 
-const Canvas = ({  fileId, fileData }: {  fileId: any, fileData: FILE }) => {
+const Canvas = ({ fileId, fileData, updateFileData }: { fileId: any, fileData: FILE, updateFileData: (newData: Partial<FILE>) => void }) => {
 
     const [whiteBoardData, setWhiteBoardData] = useState<any>();
     const updateWhiteboard = useMutation(api.files.updateWhiteboard);
 
     const saveWhiteboard = debounce(() => {
+        const whiteboardString = whiteBoardData ? JSON.stringify(whiteBoardData) : "";
         updateWhiteboard({
             _id: fileId,
-            whiteboard: JSON.stringify(whiteBoardData)
+            whiteboard: whiteboardString
         }).then(() => {
-            // toast("whiteboard auto saved")
-            // console.log("whiteboard auto saved")
+            updateFileData({ whiteboard: whiteboardString });
+            console.log("whiteboard auto saved")
         }, (e) => {
             console.log("auto save failed", e)
         })
     }, 1000);
 
-    // useEffect(() => {
-    //     onSaveTrigger && saveWhiteboard();
-    // }, [onSaveTrigger])
-    // const saveWhiteboard = () => {
-    //     updateWhiteboard({
-    //         _id: fileId,
-    //         whiteboard: JSON.stringify(whiteBoardData)
-    //     }).then(resp => console.log(resp))
-    // }
     return (
         <div style={{ height: "670px" }}>
             {fileData && <Excalidraw
@@ -43,16 +35,6 @@ const Canvas = ({  fileId, fileData }: {  fileId: any, fileData: FILE }) => {
                     setWhiteBoardData(excalidrawElements);
                     saveWhiteboard();
                 }}
-                    
-                // UIOptions={{
-                //     canvasActions: {
-                //         saveToActiveFile: true,
-                //         loadScene: true,
-                //         // export: true,
-                //         toggleTheme: true,
-
-                //     }
-                // }}
             >
                 <MainMenu>
                     <MainMenu.DefaultItems.ClearCanvas />
@@ -72,4 +54,4 @@ const Canvas = ({  fileId, fileData }: {  fileId: any, fileData: FILE }) => {
     )
 }
 
-export default Canvas  
+export default Canvas
