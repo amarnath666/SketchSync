@@ -60,7 +60,7 @@ const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
                         New File
                     </Button>
                 </DialogTrigger>
-                {totalFiles<Constant.MAX_FREE_FILE ? <DialogContent>
+                <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Create New File</DialogTitle>
                         <DialogDescription>
@@ -80,11 +80,11 @@ const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
                         </DialogClose>
                     </DialogFooter>
 
-                </DialogContent> : <PricingDialog />}
+                </DialogContent>
             </Dialog>
 
             {/* Progress Bar */}
-            <div className="h-4 w-full bg-gray-200 rounded-full mt-5">
+            {/* <div className="h-4 w-full bg-gray-200 rounded-full mt-5">
                 <div className={`h-4 bg-orange-500 rounded-full`}
                 style={{ width: `${(totalFiles/5) * 100}%` }}
                 >
@@ -93,7 +93,7 @@ const SideNavBottomSection = ({onFileCreate, totalFiles}: any) => {
             </div>
             <h2 className="text-[12px] mt-3">
                 <strong>{totalFiles}</strong> out of <strong>{Constant.MAX_FREE_FILE}</strong> files used</h2>
-            <h2 className="text-[12px] mt-1">Upgrade your plan for unlimited access.</h2>
+            <h2 className="text-[12px] mt-1">Upgrade your plan for unlimited access.</h2> */}
         </div>
     )
 }

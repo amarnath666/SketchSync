@@ -76,18 +76,7 @@ const FileList = () => {
                                         className="rounded-full"
                                     />
                                 </td>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger>
-                                            <MoreHorizontal />
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            <DropdownMenuItem className="gap-3">
-                                                <Archive className="h-4 w-4" /> Archive
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </td>
+                               
                             </tr>
                         ))}
                     </tbody>
