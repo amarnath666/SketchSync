@@ -19,8 +19,8 @@ export default function Hero() {
 
                         <div className="mt-8 flex flex-wrap justify-center gap-4">
                             <a
-                                className="block w-full rounded bg-orange-500 text-black px-12 py-3 text-sm font-medium shadow hover:bg-orange-600 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
-                                href="#"
+                                className="block w-full rounded bg-orange-500 text-white px-12 py-3 text-sm font-medium shadow hover:bg-orange-600 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
+                                href="/dashboard"
                             >
                                 Learn More
                             </a>
