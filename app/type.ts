@@ -8,10 +8,10 @@ export interface KindeState {
 }
 
 export interface TEAM {
-    createdBy?: String,
-    teamName: String,
-    _id: String,
-    member?: String
+    createdBy?: string,
+    teamName: string,
+    _id: string,
+    member?: string
 }
 
 export interface FILE {
@@ -34,4 +34,9 @@ export interface HeaderProps {
 
 export interface FileListProps {
     searchQuery: string;
+}
+
+export interface ActiveTeamContextType {
+    activeTeam: TEAM | null;
+    setActiveTeam: (team: TEAM | null) => void;
 }

@@ -67,37 +67,41 @@ function Workspace({ params }: { params: { fileId: any } }) {
       <div className='h-screen'>
         {layout === 'text' && (
           <div className='grid grid-cols-1'>
-            <Editor
-              fileId={params.fileId}
-              fileData={fileData}
-              updateFileData={updateFileData}
-            />
-          </div>
-        )}
-        {layout === 'canvas' && (
-          <div className='grid grid-cols-1'>
-            <Canvas
-              fileId={params.fileId}
-              fileData={fileData}
-              updateFileData={updateFileData}
-            />
-          </div>
-        )}
-        {layout === 'both' && (
-          <div className='grid grid-cols-1 lg:grid-cols-5'>
-            <div className='h-screen lg:col-span-2'>
+            {fileData && (
               <Editor
                 fileId={params.fileId}
                 fileData={fileData}
                 updateFileData={updateFileData}
               />
+            )}
+          </div>
+        )}
+        {layout === 'canvas' && (
+          <div className='grid grid-cols-1'>
+            {fileData && <Canvas
+              fileId={params.fileId}
+              fileData={fileData}
+              updateFileData={updateFileData}
+            />}
+          </div>
+        )}
+        {layout === 'both' && (
+          <div className='grid grid-cols-1 lg:grid-cols-5'>
+            <div className='h-screen lg:col-span-2'>
+              {fileData && (
+                <Editor
+                  fileId={params.fileId}
+                  fileData={fileData}
+                  updateFileData={updateFileData}
+                />
+              )}
             </div>
             <div className='lg:col-span-3 border-l'>
-              <Canvas
+              {fileData && <Canvas
                 fileId={params.fileId}
                 fileData={fileData}
                 updateFileData={updateFileData}
-              />
+              />}
             </div>
           </div>
         )}
