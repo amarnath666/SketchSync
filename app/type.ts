@@ -26,3 +26,9 @@ export interface FILE {
 }
 
 export type LayoutType = 'text' | 'canvas' | 'both';
+
+export interface HeaderProps {
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+}
+

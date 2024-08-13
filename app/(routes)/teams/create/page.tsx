@@ -27,7 +27,6 @@ const CreateTeam = () => {
             teamName: teamName,
             createdBy: user.email
         }).then(res => {
-            console.log(res);
             if (res) {
                 router.push("/dashboard")
                 toast("Team created succesfully!!!")

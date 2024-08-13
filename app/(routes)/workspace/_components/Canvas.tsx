@@ -18,7 +18,6 @@ const Canvas = ({ fileId, fileData, updateFileData }: { fileId: any, fileData: F
             whiteboard: whiteboardString
         }).then(() => {
             updateFileData({ whiteboard: whiteboardString });
-            console.log("whiteboard auto saved")
         }, (e) => {
             console.log("auto save failed", e)
         })

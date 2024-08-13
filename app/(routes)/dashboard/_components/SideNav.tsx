@@ -61,7 +61,7 @@ const SideNav = () => {
         className="fixed top-4 left-4 z-50 md:hidden"
         onClick={toggleSidebar}
       >
-        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-8 w-8 hover:bg-slate-200" />}
       </button>
 
       {/* Sidebar */}

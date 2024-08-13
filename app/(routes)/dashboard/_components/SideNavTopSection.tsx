@@ -31,13 +31,9 @@ const SideNavTopSection = ({ user }: any) => {
         }
     ]
 
-    // console.log("User in SideNavTopSection:", user);
-
     const teams = useQuery(api.teams.getTeam,
         user?.email ? { email: user.email } : "skip"
-    )
-
-    // console.log("Teams returned from useQuery:", teams);
+    );
 
     useEffect(() => {
         if (teams) {

@@ -67,7 +67,6 @@ const Editor = ({ fileId, fileData, updateFileData }: { fileId: any, fileData: F
   const onSaveDocument = () => {
     if (ref.current) {
       ref.current.save().then((outputData) => {
-        console.log('Article data: ', outputData);
         if (outputData && outputData.blocks && outputData.blocks.length > 0) {
           const documentString = JSON.stringify(outputData);
           updateDocument({
@@ -75,16 +74,11 @@ const Editor = ({ fileId, fileData, updateFileData }: { fileId: any, fileData: F
             document: documentString
           }).then(resp => {
             updateFileData({ document: documentString });
-            console.log('Document saved successfully');
           }, (e) => {
-            console.error("Server Error!", e);
             toast("Failed to save document");
           })
-        } else {
-          console.warn('No valid blocks to save');
-        }
+        } 
       }).catch((error) => {
-        console.error('Saving failed: ', error)
         toast("Failed to save document");
       });
     }
@@ -92,7 +86,7 @@ const Editor = ({ fileId, fileData, updateFileData }: { fileId: any, fileData: F
 
   return (
     <div>
-      <div id='editorjs' className='ml-20'></div>
+      <div id='editorjs' className='ml-10 lg:ml-20'></div>
     </div>
   )
 }

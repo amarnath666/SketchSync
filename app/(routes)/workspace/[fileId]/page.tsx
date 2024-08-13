@@ -16,7 +16,6 @@ function Workspace({ params }: { params: { fileId: any } }) {
   const updateDocument = useMutation(api.files.updateDocument);
 
   useEffect(() => {
-    console.log("FILEID", params.fileId)
     params.fileId && getFileData();
   }, [params.fileId])
 
@@ -63,7 +62,7 @@ function Workspace({ params }: { params: { fileId: any } }) {
 
   return (
     <div>
-      <WorkspaceHeader setLayout={handleLayoutChange} />
+      <WorkspaceHeader setLayout={handleLayoutChange} fileName={fileData?.fileName} />
 
       <div className='h-screen'>
         {layout === 'text' && (
@@ -85,15 +84,15 @@ function Workspace({ params }: { params: { fileId: any } }) {
           </div>
         )}
         {layout === 'both' && (
-          <div className='grid grid-cols-5'>
-            <div className='col-span-2'>
+          <div className='grid grid-cols-1 lg:grid-cols-5'>
+            <div className='h-screen lg:col-span-2'>
               <Editor
                 fileId={params.fileId}
                 fileData={fileData}
                 updateFileData={updateFileData}
               />
             </div>
-            <div className='col-span-3 border-l'>
+            <div className='lg:col-span-3 border-l'>
               <Canvas
                 fileId={params.fileId}
                 fileData={fileData}

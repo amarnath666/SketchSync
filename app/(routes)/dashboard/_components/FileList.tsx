@@ -14,21 +14,39 @@ import { useRouter } from "next/navigation";
 import moment from "moment";
 import BeatLoader from "react-spinners/BeatLoader";
 
-const FileList = () => {
+interface FileListProps {
+    searchQuery: string;
+}
+
+const FileList: React.FC<FileListProps> = ({ searchQuery }) => {
     const { fileList_, setFileList_ } = useContext(FileListContext);
     const [fileList, setFileList] = useState<any>();
     const [loading, setLoading] = useState(false);
     const { user }: any = useKindeBrowserClient();
     const router = useRouter();
+    const [filteredFiles, setFilteredFiles] = useState<FILE[]>([]);
 
     useEffect(() => {
-        fileList_ && setFileList(fileList_);
-        console.log(fileList_);
+        if (fileList_) {
+            setFileList(fileList_);
+            setFilteredFiles(fileList_);
+        }
     }, [fileList_]);
+
+    useEffect(() => {
+        if (fileList && searchQuery) {
+            const filtered = fileList.filter((file: FILE) =>
+                file.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilteredFiles(filtered);
+        } else {
+            setFilteredFiles(fileList); 
+        }
+    }, [searchQuery, fileList]);
 
     const handleFileClick = (fileId: any) => {
         setLoading(true);
-        if (router.push(`/workspace/${fileId}`)) setLoading(false); 
+        if (router.push(`/workspace/${fileId}`)) setLoading(false);
     };
 
     return (
@@ -43,7 +61,6 @@ const FileList = () => {
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Author</td>
                         </tr>
                     </thead>
-
                     <tbody className="divide-y divide-gray-200">
                         {loading && (
                             <tr className="relative h-20">
@@ -52,7 +69,7 @@ const FileList = () => {
                                 </td>
                             </tr>
                         )}
-                        {!loading && fileList && fileList.map((file: FILE, index: number) => (
+                        {!loading && filteredFiles && filteredFiles.map((file: FILE, index: number) => (
                             <tr
                                 key={index}
                                 className="odd:bg-gray-50 cursor-pointer hover:bg-slate-100"
@@ -76,7 +93,6 @@ const FileList = () => {
                                         className="rounded-full"
                                     />
                                 </td>
-                               
                             </tr>
                         ))}
                     </tbody>

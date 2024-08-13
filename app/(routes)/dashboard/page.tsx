@@ -4,7 +4,7 @@ import { KindeState } from '@/app/type';
 import { api } from '@/convex/_generated/api';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { useConvex, useMutation } from 'convex/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FileList from './_components/FileList';
 import Header from "./_components/Header"
 import { useActiveTeam } from '@/app/_context/ActiveTeamContext';
@@ -14,6 +14,7 @@ const Dashboard = () => {
   const { user }: KindeState = useKindeBrowserClient();
   const { activeTeam } = useActiveTeam();
   const createUser = useMutation(api.user.createUser);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -30,7 +31,6 @@ const Dashboard = () => {
           email: user.email,
           image: user.picture || ''
         }).then((resp) => {
-          console.log(resp);
         });
       }
     }
@@ -38,8 +38,8 @@ const Dashboard = () => {
 
   return (
     <div className='p-4 md:p-6 lg:p-8 w-full'>
-      <Header teamId={activeTeam?._id}/>
-      <FileList />
+      <Header teamId={activeTeam?._id} searchQuery={searchQuery} setSearchQuery={setSearchQuery}  />
+      <FileList searchQuery={searchQuery} />
     </div>
   );
 }
