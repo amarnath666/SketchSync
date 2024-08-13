@@ -3,7 +3,7 @@ import { FILE } from "@/app/type";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Archive, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -13,12 +13,10 @@ import {
 import { useRouter } from "next/navigation";
 import moment from "moment";
 import BeatLoader from "react-spinners/BeatLoader";
-
-interface FileListProps {
-    searchQuery: string;
-}
+import { FileListProps } from "@/app/type";
 
 const FileList: React.FC<FileListProps> = ({ searchQuery }) => {
+    const [isNavigating, setIsNavigating] = useState(false);
     const { fileList_, setFileList_ } = useContext(FileListContext);
     const [fileList, setFileList] = useState<any>();
     const [loading, setLoading] = useState(false);
@@ -44,10 +42,22 @@ const FileList: React.FC<FileListProps> = ({ searchQuery }) => {
         }
     }, [searchQuery, fileList]);
 
-    const handleFileClick = (fileId: any) => {
+    const handleFileClick = useCallback((fileId: any) => {
+        if (isNavigating) return;
+        
+        setIsNavigating(true);
         setLoading(true);
-        if (router.push(`/workspace/${fileId}`)) setLoading(false);
-    };
+        
+        const timer = setTimeout(() => {
+            router.push(`/workspace/${fileId}`);
+        }, 10);
+
+        return () => {
+            clearTimeout(timer);
+            setIsNavigating(false);
+            setLoading(false);
+        };
+    }, [router, isNavigating]);
 
     return (
         <div className="mt-10">

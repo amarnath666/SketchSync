@@ -32,3 +32,6 @@ export interface HeaderProps {
     setSearchQuery: (query: string) => void;
 }
 
+export interface FileListProps {
+    searchQuery: string;
+}
