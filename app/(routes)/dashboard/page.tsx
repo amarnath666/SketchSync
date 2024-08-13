@@ -38,7 +38,7 @@ const Dashboard = () => {
 
   return (
     <div className='p-4 md:p-6 lg:p-8 w-full'>
-      <Header teamId={activeTeam?._id} searchQuery={searchQuery} setSearchQuery={setSearchQuery}  />
+      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery}  />
       <FileList searchQuery={searchQuery} />
     </div>
   );
